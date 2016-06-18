@@ -1,0 +1,9 @@
+#Build the image
+docker build --tag=jboss/wildfly-admin .
+
+#Run DB container
+docker run --name apm-db -P -e POSTGRES_PASSWORD=admin -d postgres
+
+#Run wildfly container
+docker run -ti -P  --name apm --link apm-db:db -d jboss/wildfly-admin
+
